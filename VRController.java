@@ -16,13 +16,7 @@ public class VRController {
         String customerName = scanner.next() ;
 
         // TODO: duplication
-        Customer foundCustomer = null ;
-        for ( Customer customer: customers ) {
-            if ( customer.getName().equals(customerName)) {
-                foundCustomer = customer ;
-                break ;
-            }
-        }
+        Customer foundCustomer = foundCustomer(customerName);
 
         if ( foundCustomer == null ) {
             System.out.println("No customer found") ;
@@ -42,10 +36,7 @@ public class VRController {
         }
     }
 
-    public void returnVideo() {
-        System.out.println("Enter customer name: ") ;
-        String customerName = scanner.next() ;
-
+    private Customer foundCustomer(String customerName) {
         Customer foundCustomer = null ;
         for ( Customer customer: customers ) {
             if ( customer.getName().equals(customerName)) {
@@ -53,6 +44,14 @@ public class VRController {
                 break ;
             }
         }
+        return foundCustomer;
+    }
+
+    public void returnVideo() {
+        System.out.println("Enter customer name: ") ;
+        String customerName = scanner.next() ;
+
+        Customer foundCustomer = foundCustomer(customerName);
         if ( foundCustomer == null ) return ;
 
         System.out.println("Enter video title to return: ") ;
@@ -112,13 +111,7 @@ public class VRController {
         System.out.println("Enter customer name: ") ;
         String customerName = scanner.next() ;
 
-        Customer foundCustomer = null ;
-        for ( Customer customer: customers ) {
-            if ( customer.getName().equals(customerName)) {
-                foundCustomer = customer ;
-                break ;
-            }
-        }
+        Customer foundCustomer = foundCustomer(customerName);
 
         if ( foundCustomer == null ) {
             System.out.println("No customer found") ;
@@ -132,13 +125,7 @@ public class VRController {
         System.out.println("Enter customer name: ") ;
         String customerName = scanner.next() ;
 
-        Customer foundCustomer = null ;
-        for ( Customer customer: customers ) {
-            if ( customer.getName().equals(customerName)) {
-                foundCustomer = customer ;
-                break ;
-            }
-        }
+        Customer foundCustomer = foundCustomer(customerName);
 
         if ( foundCustomer == null ) return ;
 

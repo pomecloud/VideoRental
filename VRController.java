@@ -7,7 +7,6 @@ public class VRController {
 
     private static Scanner scanner = new Scanner(System.in) ;
 
-    // Separate Domain from presentation(Domain과 presentation이 혼재 되어 있음. )
     private List<Customer> customers = new ArrayList<Customer>() ;
     private List<Video> videos = new ArrayList<Video>() ;
 
@@ -15,22 +14,17 @@ public class VRController {
         System.out.println("Enter customer name: ") ;
         String customerName = scanner.next() ;
 
-        // TODO: duplication
         Customer foundCustomer = foundCustomer(customerName);
 
         if ( foundCustomer == null ) {
             System.out.println("No customer found") ;
         } else {
-
-            // TODO: query, reporting하는 부분은 추출해도 된다.
             System.out.println("Name: " + foundCustomer.getName() +
                     "\tRentals: " + foundCustomer.getRentals().size()) ;
             for ( Rental rental: foundCustomer.getRentals() ) {
-                // TODO: message chain
                 System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
                 System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
             }
-            // TODO: modifier
             List<Rental> rentals = new ArrayList<Rental>() ;
             foundCustomer.setRentals(rentals);
         }
@@ -145,7 +139,6 @@ public class VRController {
         Rental rental = new Rental(foundVideo) ;
         foundVideo.setRented(true);
 
-        // TODO: encapsulate collection
         List<Rental> customerRentals = foundCustomer.getRentals() ;
         customerRentals.add(rental);
         foundCustomer.setRentals(customerRentals);

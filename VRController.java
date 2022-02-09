@@ -116,7 +116,7 @@ public class VRController {
         if ( foundCustomer == null ) {
             System.out.println("No customer found") ;
         } else {
-            String result = foundCustomer.getReport() ;
+            String result = foundCustomer.generateReport() ;
             System.out.println(result);
         }
     }

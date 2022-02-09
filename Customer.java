@@ -31,18 +31,28 @@ public class Customer {
 		rentals.add(rental);
 	}
 
-	// 연산과 레포트 포맷 분리
-	public String getReport() {
+	public double getTotalCharge(){
+
+		List<Rental> rentals = getRentals();
+		double totalCharge = 0;
+
+		for (Rental each : rentals) {
+			double eachCharge = each.getVideo().getCharge(each.getDaysRented());
+			totalCharge += eachCharge;
+		}
+
+		return totalCharge;
+	}
+
+	public int getTotalPoint(){
 
 		List<Rental> rentals = getRentals();
 
-		double totalCharge = 0;
 		int totalPoint = 0;
 
 		for (Rental each : rentals) {
 			int eachPoint = 0 ;
 			int daysRented = each.getDaysRented();
-			double eachCharge = each.getVideo().getCharge(daysRented);
 
 			eachPoint++;
 
@@ -52,7 +62,6 @@ public class Customer {
 			if ( daysRented > each.getDaysRentedLimit() )
 				eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty()) ;
 
-			totalCharge += eachCharge;
 			totalPoint += eachPoint ;
 		}
 
@@ -62,12 +71,12 @@ public class Customer {
 		if ( totalPoint >= 30 ) {
 			System.out.println("Congrat! You earned two free coupon");
 		}
-		return generateReport(totalCharge, totalPoint);
+		return totalPoint;
 	}
 
-	private String generateReport(double totalCharge, int totalPoint) {
+	public String generateReport() {
 		String result = "Customer Report for " + getName() + "\n";
-		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";
+		result += "Total charge: " + getTotalCharge() + "\tTotal Point:" + getTotalPoint() + "\n";
 
 		return result;
 	}

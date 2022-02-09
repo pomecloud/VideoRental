@@ -13,7 +13,7 @@ public enum VideoType{
         return limit;
     }
 
-    public VideoType valueOf(int videoType) {
+    static public VideoType valueOf(int videoType) {
         for (VideoType v : VideoType.values()) {
             if (v.penalty == videoType) {
                 return v;

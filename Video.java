@@ -7,15 +7,18 @@ public class Video {
 	public static final int REGULAR = 1 ;
 	public static final int NEW_RELEASE =2 ;
 
-	private int videoType ;
-	public static final int VHS = 1 ;
-	public static final int CD = 2 ;
-	public static final int DVD = 3 ;
-
+	private VideoType videoType ;
 	private Date registeredDate ;
 	private boolean rented ;
-
+/*
 	public Video(String title, int videoType, int priceCode, Date registeredDate) {
+		this.setTitle(title) ;
+		this.setVideoType(videoType) ;
+		this.setPriceCode(priceCode) ;
+		this.registeredDate = registeredDate ;
+	}
+*/
+	public Video(String title, VideoType videoType, int priceCode, Date registeredDate){
 		this.setTitle(title) ;
 		this.setVideoType(videoType) ;
 		this.setPriceCode(priceCode) ;
@@ -23,14 +26,15 @@ public class Video {
 	}
 
 	public int getLateReturnPointPenalty() {
-		int pentalty = 0 ;
-		switch ( videoType ) {
-			case VHS: pentalty = 1 ; break ;
-			case CD: pentalty = 2 ; break ;
-			case DVD: pentalty = 3 ; break ;
-		}
-		return pentalty ;
+		return videoType.getPenalty();
 	}
+	public boolean isNewRelease(){
+		return getPriceCode() == NEW_RELEASE;
+	}
+	public boolean isRegular(){
+		return getPriceCode() == REGULAR;
+	}
+
 	public int getPriceCode() {
 		return priceCode;
 	}
@@ -63,26 +67,23 @@ public class Video {
 		this.registeredDate = registeredDate;
 	}
 
-	public int getVideoType() {
+	public VideoType getVideoType() {
 		return videoType;
 	}
 
-	public void setVideoType(int videoType) {
+	public void setVideoType(VideoType videoType) {
 		this.videoType = videoType;
 	}
 
 	public double getCharge(int daysRented){
 		double charge = 0;
 
-		switch (getPriceCode()) {
-			case Video.REGULAR:
-				charge += 2;
-				if (daysRented > 2)
-					charge += (daysRented - 2) * 1.5;
-				break;
-			case Video.NEW_RELEASE:
-				charge = daysRented * 3;
-				break;
+		if (isRegular()){
+			charge += 2;
+			if (daysRented > 2)
+				charge += (daysRented - 2) * 1.5;
+		}else if(isNewRelease()){
+			charge = daysRented * 3;
 		}
 
 		return charge;
